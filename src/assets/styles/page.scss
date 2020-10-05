@@ -36,3 +36,15 @@
 		}
 	}
 }
+
+.toggler {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	margin-bottom: 30px;
+}
+
+.toggler > button {
+	margin-right: 10px;
+}

@@ -1,8 +1,10 @@
 import "./style.scss";
 import React from "react";
 import moment from "moment";
+import { Card, Avatar, Tag } from "antd";
 
 const View = ({ data }) => {
+	const { Meta } = Card;
 	return (
 		<div className={"header"}>
 			<div className="block__list">
@@ -11,21 +13,31 @@ const View = ({ data }) => {
 						dob: { date },
 						email,
 						phone,
-						location: {
-							country,
-							city,
-							state,
-							street: { number, name },
-						},
+						picture,
+						name: { title, first, last },
+						location: { country, city, state, street },
+						nat,
 					}) => (
-						<div key={date} className="block">
-							<div className="birthday">
-								{moment(date).format("MMMM Do YYYY")}
+						<Card
+							style={{ width: 300 }}
+							key={date}
+							cover={<img alt="example" src={picture.large} />}
+						>
+							<Meta
+								title={`${title} ${first} ${last}`}
+								description={moment(date).format(
+									"MMMM Do YYYY"
+								)}
+							/>
+							<div>{`${email}`}</div>
+							<div>{`${phone}`}</div>
+							<div>
+								<b>{`/${country}/`}</b>
 							</div>
-							<div className="email">{email}</div>
-							<div className="phone">{phone}</div>
-							<div className="address">{`${country}, ${number} ${name}, ${city}, ${state}`}</div>
-						</div>
+							<div>{`${street.number} ${street.name}, ${city},`}</div>
+							<div>{`${state}`}</div>
+							<Tag color="volcano">{nat}</Tag>
+						</Card>
 					)
 				)}
 			</div>

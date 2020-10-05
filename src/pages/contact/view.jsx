@@ -5,6 +5,8 @@ import { ToggleBtns } from "../../components";
 import { Block } from "../../components";
 import { Filter } from "../../components";
 import { Stats } from "../../components";
+import { Button, Tooltip } from "antd";
+import { RedoOutlined } from "@ant-design/icons";
 
 const View = () => {
 	const [contacts, setContact] = useState([]);
@@ -50,8 +52,9 @@ const View = () => {
 	);
 
 	const handleChangeFilterValue = useCallback(
-		(e) => {
-			setFilterValue(e.target.value);
+		(value) => {
+			setFilterValue(value);
+			console.log(filterValue);
 		},
 		[setFilterValue]
 	);
@@ -76,21 +79,30 @@ const View = () => {
 
 	return (
 		<div className="container">
-			<button className="update__contact" onClick={handleUpdateContact}>
-				Update Contact
-			</button>
-			<ToggleBtns changeView={handleChangeView} />
-			<Filter
-				changeInput={handleChangeFilterValue}
-				changeSelect={handleChangeFilterType}
-				selectValue={filterType}
-			/>
+			<div className="toggler">
+				<Tooltip title="Update contacts">
+					<Button
+						shape="circle"
+						onClick={handleUpdateContact}
+						icon={<RedoOutlined />}
+					/>
+				</Tooltip>
+				<ToggleBtns changeView={handleChangeView} />
+			</div>
+			<div className="filter">
+				<Filter
+					changeInput={handleChangeFilterValue}
+					changeSelect={handleChangeFilterType}
+					selectValue={filterType}
+					data={contacts}
+				/>
+			</div>
 			{view ? (
 				<Table data={getFilteredData} />
 			) : (
 				<Block data={getFilteredData} />
 			)}
-			<Stats contacts={contacts} />
+			{/* <Stats contacts={contacts} /> */}
 		</div>
 	);
 };

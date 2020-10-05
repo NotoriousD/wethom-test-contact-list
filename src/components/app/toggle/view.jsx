@@ -1,27 +1,28 @@
 import "./style.scss";
 import React from "react";
+import { AppstoreOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 
 const View = ({ changeView }) => {
 	return (
 		<div className="toggle__btns">
-			<button
+			<Button
+				icon={<AppstoreOutlined />}
 				data-view={"true"}
 				onClick={() => {
 					changeView(true);
 				}}
-				className={"toggle__btn"}
-			>
-				Table
-			</button>
-			<button
+				size="middle"
+			/>
+
+			<Button
+				icon={<UnorderedListOutlined />}
 				data-view={"false"}
 				onClick={() => {
 					changeView(false);
 				}}
-				className={"toggle__btn"}
-			>
-				Blocks
-			</button>
+				size="middle"
+			/>
 		</div>
 	);
 };
